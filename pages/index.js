@@ -10,7 +10,7 @@ import {
 } from "../components";
 import { client } from "../lib/client";
 
-const index = ({ products, bannerData }) => {
+const Home = ({ products, bannerData }) => {
   return (
     <>
       <HeroBanner heroBanner={bannerData.length && bannerData[0]} />
@@ -38,4 +38,4 @@ export const getServerSideProps = async () => {
     props: { products, bannerData },
   };
 };
-export default index;
+export default Home;
