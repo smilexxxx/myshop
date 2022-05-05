@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { client, urlFor } from "../../lib/client";
 import {
   AiOutlineMinus,
   AiOutlinePlus,
   AiFillStar,
   AiOutlineStar,
 } from "react-icons/ai";
-import { Product } from "../../components/";
+
+import { client, urlFor } from "../../lib/client";
+import { Product } from "../../components";
 import { useStateContext } from "../../context/StateContext";
 
 const ProductDetails = ({ product, products }) => {
@@ -56,7 +57,7 @@ const ProductDetails = ({ product, products }) => {
             </div>
             <p>(20)</p>
           </div>
-          <h4>Description: </h4>
+          <h4>Details: </h4>
           <p>{description}</p>
           <p className="price">${price}</p>
           <div className="quantity">
@@ -101,18 +102,14 @@ const ProductDetails = ({ product, products }) => {
 };
 
 export const getStaticPaths = async () => {
-  const query = `*[_type == "product"]{
-        slug{
+  const query = `*[_type == "product"] {
+        slug {
             current
         }
     }`;
-
   const products = await client.fetch(query);
-
   const paths = products.map((product) => ({
-    params: {
-      slug: product.slug.current,
-    },
+    params: { slug: product.slug.current },
   }));
 
   return {
@@ -123,9 +120,9 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params: { slug } }) => {
   const query = `*[_type == "product" && slug.current == '${slug}'][0]`;
-  const productsQuery = '*[_type == "product"]';
-
   const product = await client.fetch(query);
+
+  const productsQuery = `*[_type == "product"]`;
   const products = await client.fetch(productsQuery);
 
   return {
