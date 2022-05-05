@@ -96,7 +96,9 @@ const Cart = () => {
                         >
                           <AiOutlineMinus />
                         </span>
-                        <span className="num">{item.quantity}</span>
+                        <span className="num" onClick="">
+                          {item.quantity}
+                        </span>
                         <span
                           className="plus"
                           onClick={() =>
@@ -127,7 +129,7 @@ const Cart = () => {
             </div>
             <div className="btn-container">
               <button type="button" className="btn" onClick={handleCheckout}>
-                Pay Now
+                Pay with Stripe
               </button>
             </div>
           </div>
