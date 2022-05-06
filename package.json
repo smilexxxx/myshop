@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@babel/core": "^7.17.10",
+    "@babel/eslint-parser": "^7.17.0",
     "@babel/preset-react": "^7.16.7",
     "@sanity/client": "^3.3.0",
     "@sanity/image-url": "^1.0.1",
