@@ -12,7 +12,7 @@ const Footer = () => {
       <p className="icons">
         <AiFillInstagram />
         <AiOutlineTwitter />
-        <AiOutlineGithub />
+        <AiOutlineGithub href="https://github.com/Nikto8962" />
       </p>
     </div>
   );
