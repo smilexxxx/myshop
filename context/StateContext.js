@@ -17,26 +17,34 @@ export const StateContext = ({ children }) => {
       (item) => item._id === product._id
     );
 
+    if (checkProductInCart) {
+      const updatedCartItems = cartItems.map((item) => {
+        if (item._id === product._id) {
+          return {
+            ...item,
+            quantity: item.quantity + quantity,
+          };
+        } else {
+          return {
+            ...item,
+          };
+        }
+      });
+      setCartItems(updatedCartItems);
+      localStorage.setItem("cart", JSON.stringify(updatedCartItems));
+    } else {
+      product.quantity = quantity;
+      setCartItems([...cartItems, { ...product }]);
+      localStorage.setItem(
+        "cart",
+        JSON.stringify([...cartItems, { ...product }])
+      );
+    }
+
     setTotalPrice(
       (prevTotalPrice) => prevTotalPrice + product.price * quantity
     );
     setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity);
-
-    if (checkProductInCart) {
-      const updatedCartItems = cartItems.map((cartProduct) => {
-        if (cartProduct._id === product._id)
-          return {
-            ...cartProduct,
-            quantity: cartProduct.quantity + quantity,
-          };
-      });
-
-      setCartItems(updatedCartItems);
-    } else {
-      product.quantity = quantity;
-
-      setCartItems([...cartItems, { ...product }]);
-    }
 
     toast.success(`${qty} ${product.name} added to the cart.`);
   };
